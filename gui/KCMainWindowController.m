@@ -44,17 +44,17 @@
 	KCViewControllerNode *viewNode;
 	KCNodesProxy *nodeProxy;
 	KCCookbooksProxy *cookbookProxy;
-	
+
 	viewNode = [[[KCViewControllerNode alloc] init] autorelease];
 	viewNode.viewController = statusController;
 	[viewNode setIsLeaf:true];
 	[a addObject:viewNode];
-	
+
 	nodeProxy = [[[KCNodesProxy alloc] init] autorelease];
 	nodeProxy.connection = self.chefConnection;
 	[nodeProxy setNodeTitle:@"Nodes"];
 	[a addObject:nodeProxy];
-	
+
 	cookbookProxy = [[[KCCookbooksProxy alloc] init] autorelease];
 	cookbookProxy.connection = self.chefConnection;
 	[cookbookProxy setNodeTitle:@"Cookbooks"];
@@ -71,16 +71,16 @@
 	[viewNode addObject:child];
 	[a addObject:viewNode];
 #endif
-	
+
 	viewNode = [[[KCViewControllerNode alloc] init] autorelease];
 	viewNode.viewController = registrationsController;
 	[viewNode setIsLeaf:true];
 	[a addObject:viewNode];
-	
+
 	viewNode = [[[KCViewControllerNode alloc] init] autorelease];
 	((KCViewControllerNode*)viewNode).viewController = searchController;
 	[viewNode setIsLeaf:true];
-	
+
 	/*	child = [[KCChefNode alloc] init];
 	 [child setNodeTitle:@"Rails nodes"];
 	 [child setIsLeaf:true];
@@ -90,15 +90,15 @@
 	 [child setIsLeaf:true];
 	 [node addObject:child];*/
 	[a addObject:viewNode];
-	
-	
+
+
 	[self setSourceContents:a];
 }
 
 - (void)awakeFromNib
-{	
+{
 	[self setupViewControllers];
-	
+
 	NSTableColumn *tableColumn = [sourceView tableColumnWithIdentifier:COLUMNID_NAME];
 	KCImageAndTextCell *imageAndTextCell = [[[KCImageAndTextCell alloc] init] autorelease];
 	[imageAndTextCell setEditable:NO];
@@ -161,19 +161,19 @@
 	if (view==nodesController)
 		[sourceController addSelectionIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathWithIndex:1]]];
 	else
-		[sourceController addSelectionIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathWithIndex:2]]];		
+		[sourceController addSelectionIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathWithIndex:2]]];
 	[self changeItemView];
 }
 
 - (void)changeItemView
 {
-	NSArray		*selection = [sourceController selectedObjects];	
+	NSArray		*selection = [sourceController selectedObjects];
 	KCChefNode		*node = [selection objectAtIndex:0];
 	NSString	*title = [node nodeTitle];
-	
+
 	if ([currentViewController view] != nil)
 		[[currentViewController view] removeFromSuperview];	// remove the current view
-	
+
 	if ([title isEqualToString:@"Registrations"])
 	{
 		[self setCurrentViewController:registrationsController];	// keep track of the current view controller
@@ -211,13 +211,13 @@
 		[self setCurrentViewController:statusController];	// keep track of the current view controller
 		[currentViewController setTitle:@"Status"];
 	}
-	
+
 	[searchField setObjectValue:@""];
 	[currentViewController setSearchPredicate:nil];
 	[currentView addSubview: [currentViewController view]];
 
 	// make sure we automatically resize the controller's view to the current window size
-	[[currentViewController view] setFrame: [currentView bounds]];	
+	[[currentViewController view] setFrame: [currentView bounds]];
 }
 
 - (void)outlineView:(NSOutlineView *)olv willDisplayCell:(NSCell*)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item
@@ -231,7 +231,7 @@
 			NSString* imageName = [item iconName];
 			if (imageName!=nil)
 				[(KCImageAndTextCell*)cell setImage:[NSImage imageNamed:imageName]];
-			
+
 			else if ([[item nodeTitle] isEqualToString:@"Apache2"])
 				[(KCImageAndTextCell*)cell setImage:[NSImage imageNamed:@"NSMysteryDocument"]];
 		}

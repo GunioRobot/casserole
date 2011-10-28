@@ -23,7 +23,7 @@
 
 - (id)transformedValue:(id)item {
 	if ([item isKindOfClass:[NSArray class]])
-		return [(NSArray*)item componentsJoinedByString:@","]; 
+		return [(NSArray*)item componentsJoinedByString:@","];
 	else
 		return item;
 }

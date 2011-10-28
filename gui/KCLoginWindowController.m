@@ -15,10 +15,10 @@
 @implementation KCLoginWindowController
 @synthesize defaultButton;
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
-{ 
-	if([keyPath isEqual:@"isFinished"]){ 
-		[object removeObserver:self forKeyPath:@"isFinished"]; 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if([keyPath isEqual:@"isFinished"]){
+		[object removeObserver:self forKeyPath:@"isFinished"];
 		KCNetworkOperation* op = (KCNetworkOperation*)object;
 		if (op.error!=nil) {
 			NSAlert* a = [NSAlert alertWithError:op.error];
@@ -34,9 +34,9 @@
 			[c setChefConnection:chef];
 			[c showWindow:nil];
 		}
-	} else { 
-		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context]; 
-	} 
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 -(void)connect:(id)sender
@@ -45,11 +45,11 @@
 	NSURL* url = [NSURL URLWithString:urlString];
 	if (url==nil)
 		return;
-	
+
 	NSOperationQueue* queue = [(KCApplicationDelegate*)[NSApp delegate] queue];
 	KCNetworkOperation* op = [[[KCNetworkOperation alloc] init] autorelease];
 	op.url =  [NSURL URLWithString:[NSString stringWithFormat:@"%@/nodes.json", [url description]]]; // This is baroque, let's fix it
-	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil]; 
+	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
 	[queue addOperation:op];
 }
 

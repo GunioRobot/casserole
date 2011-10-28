@@ -25,7 +25,7 @@
 	IBOutlet KCViewController	*currentViewController;
 	KCChefConnection			*chefConnection;
 	IBOutlet NSSearchField		*searchField;
-	
+
 	KCRegistrationsController* registrationsController;
 	KCSearchController* searchController;
 	KCNodeController* nodeController;
@@ -33,7 +33,7 @@
 	KCNodesController* nodesController;
 	KCCookbookController* cookbookController;
 	KCStatusController* statusController;
-	
+
 }
 
 @property (retain) KCChefConnection *chefConnection;

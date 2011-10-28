@@ -14,7 +14,7 @@
 @synthesize results;
 @synthesize nodes;
 
--(void)awakeFromNib 
+-(void)awakeFromNib
 {
 	self.canSearch = true;
 	[predicateEditor addRow:self];
@@ -66,11 +66,11 @@
 	NSCompoundPredicate* topLevelPredicate = (NSCompoundPredicate*)predicate;
     if (topLevelPredicate == nil)
 		return;
-	
+
 	NSString* join;
 	[self setNodes:[NSArray array]];
 	[self setResults:[NSArray array]];
-		
+
 	switch ([topLevelPredicate compoundPredicateType])
 	{
 		case NSOrPredicateType:
@@ -96,9 +96,9 @@
 			l = @"*";
 		if ([r isEqualToString:@""])
 			r = @"*";
-		[subexp addObject:[NSString stringWithFormat:@"%@:\"%@\"",l,r]]; 
+		[subexp addObject:[NSString stringWithFormat:@"%@:\"%@\"",l,r]];
 	}
-	
+
 	NSString* filteredQuery = [subexp componentsJoinedByString:join];
 	NSString* a;
 	NSString* q;
@@ -110,13 +110,13 @@
 		a = @"";
 	else
 		a = [attributes componentsJoinedByString:@","];
-	
+
 	NSOperationQueue* queue = [(KCApplicationDelegate*)[NSApp delegate] queue];
 	KCNetworkOperation* op = [[[KCNetworkOperation alloc] init] autorelease];
 	op.url =  [NSURL URLWithString:[NSString stringWithFormat:@"%@/search/node.json?q=%@&a=%@", self.chefConnection.serverURL, q, a]]; // This is baroque, let's fix it
 	op.type = @"search.node";
 	op.summary = @"Searching index";
-	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil]; 
+	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
 	[queue addOperation:op];
 }
 
@@ -130,7 +130,7 @@
 		if ([characters length] > 0 && (([characters characterAtIndex:0] == 0x0D)||([characters characterAtIndex:0] == 0x03)))
 			[self search:self];
     }
-    
+
     // if the user deleted the first row, then add it again - no sense leaving the user with no rows
     if ([predicateEditor numberOfRows] == 0)
 		[predicateEditor addRow:self];

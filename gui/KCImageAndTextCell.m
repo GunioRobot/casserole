@@ -27,10 +27,10 @@
 - (id)init
 {
 	self = [super init];
-	
+
 	// we want a smaller font
 	[self setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
-	
+
 	return self;
 }
 
@@ -89,25 +89,25 @@
 //	Returns the proper bound for the cell's title while being edited
 // -------------------------------------------------------------------------------
 - (NSRect)titleRectForBounds:(NSRect)cellRect
-{	
+{
 	// the cell has an image: draw the normal item cell
 	NSSize imageSize;
 	NSRect imageFrame;
-	
+
 	imageSize = [image size];
 	NSDivideRect(cellRect, &imageFrame, &cellRect, 3 + imageSize.width, NSMinXEdge);
-	
+
 	imageFrame.origin.x += kImageOriginXOffset;
 	imageFrame.origin.y -= kImageOriginYOffset;
 	imageFrame.size = imageSize;
-	
+
 	imageFrame.origin.y += ceil((cellRect.size.height - imageFrame.size.height) / 2);
-	
+
 	NSRect newFrame = cellRect;
 	newFrame.origin.x += kTextOriginXOffset;
 	newFrame.origin.y += kTextOriginYOffset;
 	newFrame.size.height -= kTextHeightAdjust;
-	
+
 	return newFrame;
 }
 
@@ -139,20 +139,20 @@
 		// the cell has an image: draw the normal item cell
 		NSSize imageSize;
         NSRect imageFrame;
-		
+
         imageSize = [image size];
         NSDivideRect(cellFrame, &imageFrame, &cellFrame, 3 + imageSize.width, NSMinXEdge);
-		
+
         imageFrame.origin.x += kImageOriginXOffset;
 		imageFrame.origin.y -= kImageOriginYOffset;
         imageFrame.size = imageSize;
-		
+
         if ([controlView isFlipped])
             imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
         else
             imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
 		[image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
-		
+
 		NSRect newFrame = cellFrame;
 		newFrame.origin.x += kTextOriginXOffset;
 		newFrame.origin.y += kTextOriginYOffset;
@@ -163,7 +163,7 @@
 	{
 		if ([self isGroupCell])
 		{
-			// Center the text in the cellFrame, and call super to do thew ork of actually drawing. 
+			// Center the text in the cellFrame, and call super to do thew ork of actually drawing.
 			CGFloat yOffset = floor((NSHeight(cellFrame) - [[self attributedStringValue] size].height) / 2.0);
 			cellFrame.origin.y += yOffset;
 			cellFrame.size.height -= (kTextOriginYOffset*yOffset);
@@ -195,17 +195,17 @@
 - (NSUInteger)hitTestForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)controlView
 {
 	NSInteger result = NSCellHitContentArea;
-	
+
 	NSOutlineView* hostingOutlineView = (NSOutlineView*)[self controlView];
 	if (hostingOutlineView)
 	{
 //		NSInteger selectedRow = [hostingOutlineView selectedRow];
 //		KCAbstractNode* node = [[hostingOutlineView itemAtRow:selectedRow] representedObject];
-		
+
 //		if (![node isDraggable])	// is the node isDraggable (i.e. non-file system based objects)
 			result = NSCellHitTrackableArea;
 	}
-	
+
 	return result;
 }
 

@@ -28,7 +28,7 @@
 {
     if ([keyPath isEqual:@"searchPredicate"]) {
 		// ok, don't laugh: I'm extracting the search string from something like:
-		// attributes.name CONTAINS "ga" OR id CONTAINS "ga" OR key CONTAINS "ga" OR value CONTAINS "ga" OR attributes.ipaddress 
+		// attributes.name CONTAINS "ga" OR id CONTAINS "ga" OR key CONTAINS "ga" OR value CONTAINS "ga" OR attributes.ipaddress
 		// yes, this is over ugly, yes, this will change as soon I plug correct per-view predicate setup
 		NSString* s = [[[searchPredicate description] componentsSeparatedByString:@"\""] objectAtIndex:1];
 		if (![s isEqual:searchString]) {
@@ -50,7 +50,7 @@
 
 -(void)awakeFromNib
 {
-	[self addObserver:self forKeyPath:@"searchPredicate" options:0 context:nil]; 
+	[self addObserver:self forKeyPath:@"searchPredicate" options:0 context:nil];
 }
 
 -(NSString*)iconName
@@ -65,9 +65,9 @@
 	if (searchString!=nil) {
 		bool rendered = false;
 		if ([[tableColumn identifier] isEqualToString:@"key"])
-			text = [attribute nodeTitle]; 
+			text = [attribute nodeTitle];
 		else
-			text = [attribute nodeValue]; 
+			text = [attribute nodeValue];
 		if (text!=nil) {
 			int location = 0;
 			{

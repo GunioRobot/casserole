@@ -16,10 +16,10 @@
 @synthesize chefAttributes;
 @synthesize chefAttributesCount;
 
-- (BOOL)isLeaf;  
-{  
-	return true;  
-} 
+- (BOOL)isLeaf;
+{
+	return true;
+}
 
 -(bool)countLeafNodes:(KCAttributeNode*)node
 {
@@ -180,14 +180,14 @@
 
 -(void)refresh:(id)sender
 {
-	NSOperationQueue* queue = [(KCApplicationDelegate*)[NSApp delegate] queue];	
+	NSOperationQueue* queue = [(KCApplicationDelegate*)[NSApp delegate] queue];
 	KCNetworkOperation* op = [[[KCNetworkOperation alloc] init] autorelease];
 
-	NSString* urlID = [self.nodeTitle stringByReplacingOccurrencesOfString:@"." withString:@"_"]; 
+	NSString* urlID = [self.nodeTitle stringByReplacingOccurrencesOfString:@"." withString:@"_"];
 	op.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/nodes/%@.json", self.connection.serverURL, urlID]];
 	op.type = @"get.node";
 	op.summary = [NSString stringWithFormat:@"Refreshing node %@",self.nodeTitle];
-	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil]; 
+	[op addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
 	[queue addOperation:op];
 }
 

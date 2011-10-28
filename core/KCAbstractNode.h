@@ -17,7 +17,7 @@
 	NSString *nodeValue;
 	NSMutableArray *children;
 	BOOL isLeaf;
-}  
+}
 
 @property(copy) NSString *nodeValue;
 @property(copy) NSString *nodeTitle;
@@ -58,7 +58,7 @@
 
 @interface KCViewControllerNode : KCChefNode {
 	KCViewController *viewController;
-}  
+}
 
 @property(assign) KCViewController *viewController;
 

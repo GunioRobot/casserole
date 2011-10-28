@@ -46,9 +46,9 @@
 	[recipes setIsLeaf:false];
 	[recipes setConnection:self.connection];
 	[content addObject:recipes];
-	
+
 	[self setIsLeaf:true];
-	
+
 	return self;
 }
 
